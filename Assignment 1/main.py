@@ -1,6 +1,7 @@
 # Write your assignment here
 import numpy as np 
-import argparse, json
+import argparse
+import json
 
 if __name__ == '__main__':
 
@@ -45,20 +46,15 @@ if __name__ == '__main__':
         def BGD_Loop(self):
             cache = np.zeros(self.w_GD.size)
             for i in range(self.w_GD.size):
-                cache = 0
+                gradSum = 0
                 for j in range(self.numSamples):
                     gradSum += self.BGD_Dot(j,i)
-                cache[i] = -(self.LearningRate/self.numSamples) * gradsum
+                cache[i] = -(self.LearningRate/self.numSamples) * gradSum
             self.w_GD += cache
            
         def BGD(self):
             for i in range(self.numIterations):
                 self.BGD_Loop()
-
-    #Training using simple linear regression model for both analytical wstar + batch gradient descent method
-    Lin_Reg = Linear_Regression(args.infilepath, args.jsonfilepath)
-    Lin_Reg.wstar()
-    Lin_Reg.BGD()
     
     #Parser to receive .in file and .json file
     parser = argparse.ArgumentParser(description='Receive 2 inputs or 2 relative file path for the .in file and .json file')
@@ -66,6 +62,11 @@ if __name__ == '__main__':
     parser.add_argument('jsonfilepath', help = '.json filepath')
     args = parser.parse_args()
 
+    #Training using simple linear regression model for both analytical wstar + batch gradient descent method
+    Lin_Reg = Linear_Regression(args.infilepath, args.jsonfilepath)
+    Lin_Reg.wstar()
+    Lin_Reg.BGD()
+    
     #Obtain file paths from arguments and replace .in with .out for the extentions
     infilepath = args.infilepath
     outfilepath = infilepath.replace('.in','.out')
