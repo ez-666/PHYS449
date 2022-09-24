@@ -3,8 +3,8 @@ import numpy as np
 import argparse
 import json
 
+#Checks for main.py
 if __name__ == '__main__':
-
     class Linear_Regression:
         def __init__(self, infilepath, jsonfilepath):
             #load dataset from relative file path
